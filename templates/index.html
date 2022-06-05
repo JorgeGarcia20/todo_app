@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %} - Index {% endblock %}
+{% block body %}
+
+{% with messages = get_flashed_messages()%}
+
+    {% if messages %}
+
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
+
+<div class="row">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-center mb-4">Crea una nueva tarea</h1>
+                <form action="/new" method="post">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Titulo</label>
+                        <input type="text" class="form-control" name="title" id="title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripción</label>
+                        <textarea class="form-control" name="description" id="description" cols="30"
+                            rows="10"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-center mb-4">Lista de tareas</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Titulo</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Creación</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Acciones</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+
+                        <tr>
+                            <td>{{task.title}}</td>
+                            <td>{{task.description}}</td>
+                            <td>{{task.date}}</td>
+                            {% if task.status == 1 %}
+                            <td>Activa</td>
+                            {% else %}
+                            <td>Terminada</td>
+                            {% endif %}
+
+                            <td>
+                                <a class="btn bi bi-trash" href="{{url_for('tasks.delete', id=task.id)}}"></a>
+                                <a class="btn bi bi-pencil" href="{{url_for('tasks.update', id=task.id)}}"></a>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
