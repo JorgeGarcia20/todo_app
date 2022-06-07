@@ -7,8 +7,9 @@ tasks = Blueprint('tasks', __name__)
 
 @tasks.route('/')
 def index():
-    tasks = Task.query.all()
-    return render_template('index.html', tasks=tasks)
+    active_tasks = Task.query.filter_by(status=1)
+    deactive_tasks = Task.query.filter_by(status=0)
+    return render_template('index.html', active_tasks=active_tasks, dtask=deactive_tasks)
 
 
 @tasks.route('/new', methods=['POST'])

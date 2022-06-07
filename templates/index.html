@@ -4,16 +4,16 @@
 
 {% with messages = get_flashed_messages()%}
 
-    {% if messages %}
+{% if messages %}
 
-        {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            {{message}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
 
-    {% endif %}
+{% endif %}
 
 {% endwith %}
 
@@ -40,34 +40,61 @@
     <div class="col-8">
         <div class="card">
             <div class="card-body">
-                <h1 class="text-center mb-4">Lista de tareas</h1>
+                <h1 class="text-center mb-4">Lista de tareas activas</h1>
                 <table class="table">
                     <thead>
                         <tr>
+                            <th scope="col">Status</th>
                             <th scope="col">Titulo</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Creación</th>
-                            <th scope="col">Estado</th>
                             <th scope="col">Acciones</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        {% for task in tasks %}
+                        {% for task in active_tasks %}
 
                         <tr>
+                            <td><input type="checkbox" class="form-check-input" id="exampleCheck1" checked></td>
                             <td>{{task.title}}</td>
                             <td>{{task.description}}</td>
                             <td>{{task.date}}</td>
-                            {% if task.status == 1 %}
-                            <td>Activa</td>
-                            {% else %}
-                            <td>Terminada</td>
-                            {% endif %}
-
                             <td>
                                 <a class="btn bi bi-trash" href="{{url_for('tasks.delete', id=task.id)}}"></a>
                                 <a class="btn bi bi-pencil" href="{{url_for('tasks.update', id=task.id)}}"></a>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h1 class="text-center mb-4">Lista de tareas completadas</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Status</th>
+                            <th scope="col">Titulo</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Creación</th>
+                            <th scope="col">Acciones</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dtask in dtask %}
+
+                        <tr>
+                            <td><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+                            <td>{{dtask.title}}</td>
+                            <td>{{dtask.description}}</td>
+                            <td>{{dtask.date}}</td>
+                            <td>
+                                <a class="btn bi bi-trash" href="{{url_for('tasks.delete', id=dtask.id)}}"></a>
                             </td>
                         </tr>
 
