@@ -53,3 +53,21 @@ def delete(id):
     flash('Tarea eliminada satisfactoriamente')
 
     return redirect(url_for('tasks.index'))
+
+
+@tasks.route('/complete/<int:id>')
+def complete(id):
+    task = Task.query.get(id)
+    task.status = 0
+    db.session.commit()
+
+    return redirect(url_for('tasks.index'))
+
+
+@tasks.route('/active/<int:id>')
+def active(id):
+    task = Task.query.get(id)
+    task.status = 1
+    db.session.commit()
+
+    return redirect(url_for('tasks.index'))

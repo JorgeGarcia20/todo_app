@@ -30,7 +30,7 @@
                     <div class="mb-3">
                         <label for="description" class="form-label">Descripción</label>
                         <textarea class="form-control" name="description" id="description" cols="30"
-                            rows="10"></textarea>
+                            rows="5"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Agregar</button>
                 </form>
@@ -56,7 +56,9 @@
                         {% for task in active_tasks %}
 
                         <tr>
-                            <td><input type="checkbox" class="form-check-input" id="exampleCheck1" checked></td>
+                            <td>
+                                <a class="btn bi bi-check-square" href="{{url_for('tasks.complete', id=task.id)}}"></a>
+                            </td>
                             <td>{{task.title}}</td>
                             <td>{{task.description}}</td>
                             <td>{{task.date}}</td>
@@ -89,10 +91,13 @@
                         {% for dtask in dtask %}
 
                         <tr>
-                            <td><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
-                            <td>{{dtask.title}}</td>
-                            <td>{{dtask.description}}</td>
-                            <td>{{dtask.date}}</td>
+                            <td>
+                                <a class="btn bi bi-arrow-clockwise"
+                                    href="{{url_for('tasks.active', id=dtask.id)}}"></a>
+                            </td>
+                            <td class="text-decoration-line-through">{{dtask.title}}</td>
+                            <td class="text-decoration-line-through">{{dtask.description}}</td>
+                            <td class="text-decoration-line-through">{{dtask.date}}</td>
                             <td>
                                 <a class="btn bi bi-trash" href="{{url_for('tasks.delete', id=dtask.id)}}"></a>
                             </td>

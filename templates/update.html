@@ -13,9 +13,11 @@
                     <div class="mb-3">
                         <label for="description" class="form-label">Descripción</label>
                         <textarea class="form-control" name="description" id="description" cols="30"
-                            rows="10">{{task.description}}</textarea>
+                            rows="5">{{task.description}}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <a class="btn btn-secondary" href="{{url_for('tasks.index')}}">Cancelar</a>
+
                 </form>
             </div>
         </div>
